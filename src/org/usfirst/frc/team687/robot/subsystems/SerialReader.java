@@ -1,0 +1,51 @@
+package org.usfirst.frc.team687.robot.subsystems;
+
+import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+/**
+ *
+ */
+public class SerialReader extends Subsystem {
+
+    // Put methods for controlling this subsystem
+    // here. Call these from Commands.
+
+	static final int BAUD_RATE = 115200;
+	
+	SerialPort visionPort;
+//	int loopCount = 0;
+	
+    public void initDefaultCommand() {
+        // Set the default command for a subsystem here.
+        //setDefaultCommand(new MySpecialCommand());
+    	
+    	try {
+			System.out.print("Creating JeVois SerialPort...");
+			visionPort = new SerialPort(BAUD_RATE,SerialPort.Port.kUSB);
+			System.out.println("Connected...");
+		} catch (Exception e) {
+			System.out.println("FAILED!! No device detected...");
+            e.printStackTrace();
+            }
+    }
+    
+    public void writeSerial(String input) {
+    	 if (visionPort == null) return;
+         System.out.println("pinging JeVois");
+         String cmd = input;
+         int bytes = visionPort.writeString(cmd);
+         System.out.println("wrote " +  bytes + "/" + cmd.length() + " bytes, cmd: " + cmd);
+    }
+    
+    public String readSerial() {
+    	String output = visionPort.readString();
+    	return output;
+    }
+    
+    public void displayOutputs() {
+    	SmartDashboard.putString("USB output", readSerial()); 
+    }
+}
+
