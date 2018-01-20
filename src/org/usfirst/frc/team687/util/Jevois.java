@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.SerialPort.Port;
 public class Jevois implements Runnable {
 
 	private SerialPort 		serialPort;
-	private UsbCamera 		cam;
+	private UsbCamera 		cam; //MJPG
 	
 	private Thread 			listener;
 	private AtomicBoolean	keepRunning;
@@ -252,5 +252,8 @@ public class Jevois implements Runnable {
 		System.out.println("jevoisLib: Jevois Listener Thread exiting!");
 
 	}
+//	public void ping() {
+//		sendCommand("ping success");
+//	}
 
 }
