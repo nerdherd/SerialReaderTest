@@ -251,9 +251,11 @@ public class Jevois implements Runnable {
 		
 		System.out.println("jevoisLib: Jevois Listener Thread exiting!");
 
+		
 	}
-//	public void ping() {
-//		sendCommand("ping success");
-//	}
+	public String ping(){
+	    String response = sendCommand("ping\n");
+	    return response;
+	}
 
 }

@@ -54,20 +54,34 @@ public class SerialReader extends Subsystem {
 	
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    	
-    	try {
-			jevois = new Jevois();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        //setDefaultCommand(new MySpecialCommand());	
+	SmartDashboard.putString("status", "nothing");
+
+	try {
+	    jevois = new Jevois();
+	} catch (Exception e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	}
         jevois.setVideoMode(pixelFormat, pixelLength, pixelWidth, frameRate);
-        jevois.run();
+        ping();
+        Thread thread = new Thread(jevois);
+        thread.start();
     }
     
     public void getTargetInfo() {
     	jevois.streamTargetInfo(true);
+    }
+
+    public void getInfo() {
+	// TODO Auto-generated method stub
+	jevois.getInfo();
+    }
+
+    public void ping() {
+	// TODO Auto-generated method stub
+	SmartDashboard.putString("test", "true");
+	SmartDashboard.putString("status" ,jevois.ping());
     }
     
 //    public void ping() {

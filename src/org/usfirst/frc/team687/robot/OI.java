@@ -18,13 +18,13 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 	
-	Joystick joy;
+	public Joystick joy;
 	JoystickButton infoReader;
 	
 	public OI() {
 		joy = new Joystick(0);
 		
-		infoReader = new JoystickButton(joy, 1);
+		infoReader = new JoystickButton(joy, 5);
 		infoReader.whenPressed(new getTargetInfo());
 	}
 	//// CREATING BUTTONS

@@ -33,7 +33,7 @@ public class Robot extends TimedRobot {
 	 * used for any initialization code.
 	 */
 	@Override
-	public void robotInit() {
+	public void robotInit() {	    
 		visionReader = new SerialReader();
 		
 		m_oi = new OI();
