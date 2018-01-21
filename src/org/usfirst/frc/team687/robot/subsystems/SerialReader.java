@@ -46,7 +46,8 @@ public class SerialReader extends Subsystem {
 //	     SmartDashboard.putString("USB output", readSerial()); 
 //	}
 //	
-	Jevois jevois;
+//	Jevois jevois;
+	Thread thread = null;
 	PixelFormat pixelFormat = PixelFormat.kYUYV;
 	int pixelLength = 320;
 	int pixelWidth = 254;
@@ -55,21 +56,22 @@ public class SerialReader extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	
-    	try {
-			jevois = new Jevois();
+		try {
+			thread = new Thread(new Jevois());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        jevois.setVideoMode(pixelFormat, pixelLength, pixelWidth, frameRate);
-        jevois.run();
+    	thread.start();
     }
-    
-    public void getTargetInfo() {
-    	jevois.streamTargetInfo(true);
-    }
-    
+//    	jevois.setVideoMode(pixelFormat, pixelLength, pixelWidth, frameRate);
+//        
+//    }
+//    
+//    public void getTargetInfo() {
+//    	jevois.streamTargetInfo(true);
+//    }
+//    
 //    public void ping() {
 //        jevois.ping();    	
 //    }

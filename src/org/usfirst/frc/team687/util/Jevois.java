@@ -17,8 +17,9 @@ import edu.wpi.first.networktables.TableEntryListener;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class Jevois implements Runnable {
+public class Jevois extends Subsystem implements Runnable {
 
 	private SerialPort 		serialPort;
 	private UsbCamera 		cam; //MJPG
@@ -32,6 +33,9 @@ public class Jevois implements Runnable {
 	private StringBuffer	cmdResp, buf;
 	private NetworkTable	ntJevois, ntJevoisCamCtrls, ntJevoisVisionParams, ntJevoisTarget;
 	private JsonParser		jsonParser;
+	
+	SerialPort.Port port = Port.kUSB1;
+	String cameraDev = "/dev/video0";
 	
 	private final String[]  CAMERA_CONTROLS = {"brightness\n","contrast\n","saturation\n","autowb\n","dowb\n","redbal\n","bluebal\n","autogain\n",
 												"gain\n","hflip\n","vflip\n","sharpness\n","autoexp\n","absexp\n","presetwb\n"};
@@ -84,13 +88,17 @@ public class Jevois implements Runnable {
 		}
 	};
 	
-	
-	public Jevois() throws Exception {
-		init(Port.kUSB1, "/dev/video0");
-	}
-	
-	public Jevois(SerialPort.Port port, String cameraDev) throws Exception {
-		init(port, cameraDev);
+	@Override
+	protected void initDefaultCommand() {
+		try {
+			init(port, cameraDev);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		sendCommand("ping\n");
+		
+		
 	}
 	
 	private void init(SerialPort.Port port, String cameraDev) throws Exception {
@@ -121,9 +129,10 @@ public class Jevois implements Runnable {
 		setCameraControls();
 		readVisionParams();
 		publishCameraControls();
+		setVideoMode(PixelFormat.kYUYV, 320, 254, 60);
 	}
 	
-	public void setVideoMode(PixelFormat f, int w, int h, int fps) {
+	private void setVideoMode(PixelFormat f, int w, int h, int fps) {
 		cam.setVideoMode(f, w, h, fps);
 	}
 	
@@ -252,8 +261,4 @@ public class Jevois implements Runnable {
 		System.out.println("jevoisLib: Jevois Listener Thread exiting!");
 
 	}
-//	public void ping() {
-//		sendCommand("ping success");
-//	}
-
 }

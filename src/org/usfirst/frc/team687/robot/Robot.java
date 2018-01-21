@@ -12,7 +12,8 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import org.usfirst.frc.team687.robot.subsystems.SerialReader;
+//import org.usfirst.frc.team687.robot.subsystems.SerialReader;
+import org.usfirst.frc.team687.util.Jevois;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -22,7 +23,8 @@ import org.usfirst.frc.team687.robot.subsystems.SerialReader;
  * project.
  */
 public class Robot extends TimedRobot {
-	public static SerialReader visionReader;
+//	public static SerialReader visionReader;
+	public static Jevois jevois;
 	public static OI m_oi;
 
 	Command m_autonomousCommand;
@@ -34,7 +36,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		visionReader = new SerialReader();
+//		visionReader = new SerialReader();
+		jevois = new Jevois();
 		
 		m_oi = new OI();
 //		m_chooser.addDefault("Default Auto", new ExampleCommand());
