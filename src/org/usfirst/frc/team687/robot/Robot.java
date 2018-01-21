@@ -38,7 +38,6 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 //		visionReader = new SerialReader();
 		jevois = new Jevois();
-		
 		m_oi = new OI();
 //		m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());

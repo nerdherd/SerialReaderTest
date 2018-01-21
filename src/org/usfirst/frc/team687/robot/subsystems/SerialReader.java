@@ -1,15 +1,15 @@
-package org.usfirst.frc.team687.robot.subsystems;
-
-import org.usfirst.frc.team687.util.Jevois;
-
-import edu.wpi.cscore.VideoMode.PixelFormat;
-import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-/**
- *
- */
-public class SerialReader extends Subsystem {	
+//package org.usfirst.frc.team687.robot.subsystems;
+//
+//import org.usfirst.frc.team687.util.Jevois;
+//
+//import edu.wpi.cscore.VideoMode.PixelFormat;
+//import edu.wpi.first.wpilibj.SerialPort;
+//import edu.wpi.first.wpilibj.command.Subsystem;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+///**
+// *
+// */
+//public class SerialReader extends Subsystem {	
 //	static final int BAUD_RATE = 115200;
 //	 	
 //	SerialPort visionPort;
@@ -47,23 +47,23 @@ public class SerialReader extends Subsystem {
 //	}
 //	
 //	Jevois jevois;
-	Thread thread = null;
-	PixelFormat pixelFormat = PixelFormat.kYUYV;
-	int pixelLength = 320;
-	int pixelWidth = 254;
-	int frameRate = 60;
-	
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-		try {
-			thread = new Thread(new Jevois());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	thread.start();
-    }
+//	Thread thread = null;
+//	PixelFormat pixelFormat = PixelFormat.kYUYV;
+//	int pixelLength = 320;
+//	int pixelWidth = 254;
+//	int frameRate = 60;
+//	
+//    public void initDefaultCommand() {
+//        // Set the default command for a subsystem here.
+//        //setDefaultCommand(new MySpecialCommand());
+//		try {
+//			thread = new Thread(new Jevois());
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//    	thread.start();
+//    }
 //    	jevois.setVideoMode(pixelFormat, pixelLength, pixelWidth, frameRate);
 //        
 //    }
@@ -75,4 +75,4 @@ public class SerialReader extends Subsystem {
 //    public void ping() {
 //        jevois.ping();    	
 //    }
-}
+//}
