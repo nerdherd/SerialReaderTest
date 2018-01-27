@@ -3,6 +3,8 @@ package org.usfirst.frc.team687.util;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
+import org.usfirst.frc.team687.robot.RobotMap;
+
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -18,9 +20,14 @@ import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Jevois extends Subsystem implements Runnable {
 
+	public static boolean commandStatus = false;
+	
+	private String			command;
+	
 	private SerialPort 		serialPort;
 	private UsbCamera 		cam; //MJPG
 	
@@ -97,8 +104,6 @@ public class Jevois extends Subsystem implements Runnable {
 			e.printStackTrace();
 		}
 		sendCommand("ping\n");
-		
-		
 	}
 	
 	private void init(SerialPort.Port port, String cameraDev) throws Exception {
@@ -129,7 +134,7 @@ public class Jevois extends Subsystem implements Runnable {
 		setCameraControls();
 		readVisionParams();
 		publishCameraControls();
-		setVideoMode(PixelFormat.kYUYV, 320, 254, 60);
+//		setVideoMode(PixelFormat.kYUYV, 320, 254, 60);
 	}
 	
 	private void setVideoMode(PixelFormat f, int w, int h, int fps) {
@@ -195,6 +200,10 @@ public class Jevois extends Subsystem implements Runnable {
 		return sendCommand("sendtargets " + ((streamOn) ? "on\n" : "off\n"));
 	}
 		 
+	public String ping(){
+	    String response = sendCommand("ping\n");
+	    return response;
+	}
 	
 	// send command and return response
 	private String sendCommand(String c) {
@@ -216,6 +225,15 @@ public class Jevois extends Subsystem implements Runnable {
 		String ret = cmdResp.toString();
 		cmdLock.set(false);
 		return ret;
+	}
+	
+	public void commandInterface() {
+		command = SmartDashboard.getString("command: ", command);
+    	if (commandStatus) {
+    		sendCommand(command);
+    		SmartDashboard.putString("command: ", command);
+    		commandStatus = false;
+    	}
 	}
 	
 	@Override
@@ -260,10 +278,5 @@ public class Jevois extends Subsystem implements Runnable {
 		
 		System.out.println("jevoisLib: Jevois Listener Thread exiting!");
 
-		
-	}
-	public String ping(){
-	    String response = sendCommand("ping\n");
-	    return response;
 	}
 }
